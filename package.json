@@ -1,0 +1,21 @@
+{
+  "name": "armygametakegazillion",
+  "version": "1.0.0",
+  "description": "3JS Military Game - Commander-led RTS",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "keywords": ["threejs", "rts", "game", "military"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/three": "^0.174.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "three": "^0.174.0",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.2"
+  }
+}

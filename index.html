@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3JS Military Game</title>
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <div id="game-container">
+    <!-- Three.js canvas will be injected here -->
+  </div>
+  <div id="ui-overlay">
+    <div id="top-bar">
+      <div id="points-display">TP: <span id="tactical-points">50</span>/500 | VP: <span id="victory-points">0</span></div>
+      <div id="unit-queue"></div>
+      <div id="support-buttons"></div>
+      <div id="game-clock">00:00/30:00</div>
+    </div>
+    <div id="mini-map"></div>
+    <div id="unit-control"></div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html> 

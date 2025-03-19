@@ -1,0 +1,51 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Your rule content
+
+- You can @ files here
+- You can use markdown but dont have to
+Before diving into the best practices, please note that you may need to adapt the globs depending on your project's specific file structure and requirements.
+
+---
+
+name: threejs-best-practices.mdc
+description: Best practices for Three.js 3D rendering and performance optimization
+globs: **/*.{ts,tsx,js,jsx}
+
+- Use Object3D layers for efficient rendering and culling
+- Implement proper scene graph management to optimize performance
+- Utilize WebGLRenderer capabilities for better graphics performance
+- Leverage Geometry compression to reduce memory usage
+- Implement efficient texture management and loading strategies
+
+---
+
+name: simple-military-best-practices.mdc
+description: Best practices for using Simple Military - Cartoon War assets
+globs: **/*.{ts,tsx,js,jsx}
+
+- Ensure consistent scaling and positioning of assets for a cohesive look
+- Use asset variations (e.g., Soldier01_var1) to add visual diversity
+- Optimize asset loading by grouping and batching similar assets
+- Implement proper animation management for smooth transitions
+- Use asset-specific properties (e.g., health, damage) for gameplay mechanics
+
+---
+
+name: sloyd-ai-best-practices.mdc
+description: Best practices for integrating Sloyd.ai custom models
+globs: **/*.{ts,tsx,js,jsx}
+
+- Ensure proper model loading and error handling for custom assets
+- Optimize model rendering by using appropriate LOD (Level of Detail) techniques
+- Implement efficient model animation systems for dynamic gameplay
+- Use custom model properties (e.g., range, speed) to enhance gameplay mechanics
+- Ensure seamless integration with existing Simple Military assets for a unified visual style
+
+---
+
+These best practices should help you optimize your use of Three.js, Simple Military - Cartoon War, and Sloyd.ai assets in your 3JS Military Game project.
