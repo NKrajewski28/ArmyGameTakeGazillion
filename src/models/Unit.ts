@@ -323,6 +323,10 @@ export class Unit {
     return this.selected;
   }
   
+  public isMoving(): boolean {
+    return this.targetPosition !== null;
+  }
+  
   // Cleanup
   public dispose(): void {
     // Clean up THREE.js objects to prevent memory leaks

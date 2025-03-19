@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { Unit, Faction } from '../models/Unit';
 import { InfantrySquad } from '../models/InfantrySquad';
 import { GameEngine } from './GameEngine';
+import { BehaviorManager } from './BehaviorManager';
 
 // Enum for unit states based on AI Behavior Overview
 export enum UnitState {
@@ -30,6 +31,7 @@ export class UnitManager {
   private scene: THREE.Scene;
   private units: Map<string, Unit> = new Map();
   private selectedUnits: Set<string> = new Set();
+  private behaviorManager: BehaviorManager;
   
   // Raycaster for unit selection
   private raycaster: THREE.Raycaster;
@@ -38,6 +40,9 @@ export class UnitManager {
   constructor(gameEngine: GameEngine) {
     this.gameEngine = gameEngine;
     this.scene = gameEngine.getScene();
+    
+    // Initialize behavior manager
+    this.behaviorManager = new BehaviorManager();
     
     // Initialize raycaster for selection
     this.raycaster = new THREE.Raycaster();
@@ -153,6 +158,9 @@ export class UnitManager {
       }
     });
     
+    // Initialize behavior state
+    this.behaviorManager.initializeUnitState(unit);
+    
     // Store the unit
     this.units.set(id, unit);
     
@@ -209,6 +217,8 @@ export class UnitManager {
             if (target instanceof THREE.Vector3) {
               unit.moveTo(target);
               console.log(`${unit.getName()} moving to (${target.x.toFixed(1)}, ${target.y.toFixed(1)}, ${target.z.toFixed(1)})`);
+              // Update unit state for behavior system
+              this.behaviorManager.updateUnitState(unit, UnitState.Moving);
             }
             break;
             
@@ -217,18 +227,26 @@ export class UnitManager {
               // In a real implementation, this would check range, etc.
               unit.attack(target);
               console.log(`${unit.getName()} attacking ${target.getName()}`);
+              // Update unit state for behavior system
+              this.behaviorManager.updateUnitState(unit, UnitState.Attacking);
             }
             break;
             
           case OrderType.Defend:
             // In a real implementation, this would have defense logic
             console.log(`${unit.getName()} defending`);
+            // Update unit state for behavior system
+            this.behaviorManager.updateUnitState(unit, UnitState.Defending);
             break;
             
           case OrderType.Special:
             // Use the unit's special ability
             const success = unit.useSpecial();
             console.log(`${unit.getName()} using special ability: ${success ? 'success' : 'failed'}`);
+            // Update unit state for behavior system if successful
+            if (success) {
+              this.behaviorManager.updateUnitState(unit, UnitState.UsingSpecial);
+            }
             break;
         }
       }
@@ -236,12 +254,16 @@ export class UnitManager {
   }
   
   public update(delta: number): void {
+    // Get all units as an array for nearby calculations
+    const unitsArray = Array.from(this.units.values());
+    
     // Update all units
     this.units.forEach(unit => {
+      // Update unit movement, etc.
       unit.update(delta);
       
-      // In a real implementation, this would have more complex AI behavior
-      // based on the AI Behavior Overview document
+      // Run AI behavior for this unit
+      this.behaviorManager.executeBehaviorTree(unit, delta, unitsArray);
     });
   }
   
